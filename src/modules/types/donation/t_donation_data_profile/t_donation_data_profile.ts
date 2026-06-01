@@ -5,9 +5,14 @@ type t_donation_links={
 
 export type t_donation_data_profile={
         image:string|[],
-        link:t_donation_links,
+        links:t_donation_links[],
         name:string,
         story:string,
-        youtube_channel:string,
-        youtube_profile:string
+        youtube_channel:{
+                src:string
+        },
+        youtube_profile:{
+                src:string,
+                type:string
+        }
 }

@@ -1,22 +1,25 @@
+import { e_data_citizen } from "../../../../enum";
 import { t_donation_data_member,t_donation_data_profile } from "../../../../types";
 
 const data_profile:t_donation_data_profile={
-        image:"picture.jpg",
-        links:[
-                {name:"link",url:""}
-        ],
-        name:"mahira",
-        story:"she struggle for her life in gaza and feed her children",
+        name:"",
+        story:"",
         youtube_channel:{
                 src:""
         },
         youtube_profile:{
                 src:"",
-                type:""
-        }
+                type:e_data_citizen.yt_short
+        },
+        image:"",
+        links:[
+                
+                {name:"",url:""}
+
+        ]
 }
 
-const mahira:t_donation_data_member={
+const sample:t_donation_data_member={
         name:data_profile.name,
         youtube_profile:data_profile.youtube_profile,
         youtube_channel:data_profile.youtube_channel,
@@ -26,4 +29,4 @@ const mahira:t_donation_data_member={
 }
 
 
-export {mahira}
+export {sample}
