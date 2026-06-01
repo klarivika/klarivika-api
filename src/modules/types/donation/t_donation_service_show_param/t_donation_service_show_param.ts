@@ -1,12 +1,9 @@
-import { t_donation_data_global } from ".."
 import { t_base_param_types } from "../../universal_type"
 import { t_resonse_cb } from "../t_resonse_cb/t_resonse_cb"
 
 
-type t_donation_service_index_param=t_base_param_types&{
+export type t_donation_service_show_param=t_base_param_types&{
+    id:number|string,
+    country:string,
     response_cb:(params:t_resonse_cb)=>void
-}
-
-export {
-    t_donation_service_index_param
 }

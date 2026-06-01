@@ -3,11 +3,9 @@ import { openapi } from '@elysia/openapi'
 import { rateLimit } from 'elysia-rate-limit'
 import { DonationController } from "../src/modules";
 import { Universal_api_util } from "./utils";
-import { DonationService } from "./modules/donation/donation.service";
 //index is controller service model
 //rate limit 80
 // 429 Too Many Requests
-const service=new DonationService()
 const donation_controller=new DonationController()
 const crime_keyword_route:string='/crime' 
 const donation_keyword_route:string='/donation' 

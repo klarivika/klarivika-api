@@ -1,3 +1,4 @@
+// ! kode program terlalu kompleks karena tidak implements kiss[keep it simple stupid] ,jika admin ingin saya ubah kodenya jadi kiss tinggal dm aja
 //? deepsearch ada di 
 // todo: DonationRepository
 // todo: DonationModel

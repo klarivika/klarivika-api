@@ -8,7 +8,7 @@ import {
 	t_donation_controller_show_param ,
 	t_donation_api_reformat_param,
 	t_donation_person_datas,
-	t_donation_repository_index_param,
+	t_donation_service_show_param,
 	t_donation_repository_show_param,
 	t_model_find_all_value_skip_id_param,
 	t_model_find_by_param
@@ -42,7 +42,7 @@ export {
 	t_q_params,
 	t_base_param_types,
 	t_donation_person_datas,
-	t_donation_repository_index_param,
+	t_donation_service_show_param,
 	t_deep_search2,
 	t_deep_search,
 	t_donation_repository_show_param,

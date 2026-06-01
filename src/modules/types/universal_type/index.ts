@@ -19,5 +19,5 @@ export {
     t_cb_response,
     t_cb_response_param,
     t_fiture_q_search_country_param,
-    t_fiture_q_search_param
+    t_fiture_q_search_param,
 }

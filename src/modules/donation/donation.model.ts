@@ -5,8 +5,11 @@ import {t_donation_data_global,t_donation_data_member,t_model_find_all_value_ski
 import { DonationDatabase } from "./donation.database"
 //todo komunikasi dengan database
 
-
+//todo: bikin fitur select sql look a like dan group(country_name) 
+// ? select id,country_name from tabel_name group(country_name)
+// todo: sementara refaktor [controller return response json][controller->service->repository->model] [service melakukan bisnis logic lalu di repository[khusus komunikasi dengan databse] sintaksnya mirip dengan findAll,findAllSkipId] [repository hanya boleh perform sql syntaks lalu hasilnya dilempar ke service][model menyediakan validasi sql sintaks untuk menyeleksi field dan groupby diwajibkan jika tidak throw error(group() functions is required in the repository {name})]
 class DonationModel extends DonationModelAbstract implements DonationModelInterface{
+    protected tabel_name='donation'
     protected database:DonationDatabase=new DonationDatabase()
     protected donation_util=Donation_api
     public getData=():t_donation_data_global=>this.database.getData()
@@ -61,8 +64,8 @@ class DonationModel extends DonationModelAbstract implements DonationModelInterf
                 return this.donation_util.reformat_mass_country({
                     country_Data:grouped_data
                 })
-           
-        //todo maka dia akan jadi some[or] atau every[and] lalu query akan di iterasi jadi key dan value dengan logic key === value atau agar parsial gunakkan teknik string dan includes gweh suka parsial karena mirip ama sql like %what data should i search?% dan dia gak strict gunakkan deep search untuk menelusuri ranting bercabang [nested object maupun array] 
+    
+    //todo maka dia akan jadi some[or] atau every[and] lalu query akan di iterasi jadi key dan value dengan logic key === value atau agar parsial gunakkan teknik string dan includes gweh suka parsial karena mirip ama sql like %what data should i search?% dan dia gak strict gunakkan deep search untuk menelusuri ranting bercabang [nested object maupun array] 
         
     }
 }
