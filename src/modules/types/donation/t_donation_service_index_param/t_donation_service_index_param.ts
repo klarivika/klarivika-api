@@ -1,4 +1,3 @@
-import { t_donation_data_global } from ".."
 import { t_base_param_types } from "../../universal_type"
 import { t_resonse_cb } from "../t_resonse_cb/t_resonse_cb"
 

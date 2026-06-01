@@ -14,7 +14,7 @@ const data_profile:t_donation_data_profile={
         image:"https://yt3.googleusercontent.com/tXC_-Dk1SkqqxbXqwExCFyD_Gipvlm3TdTRYjHOihuYKb0p--weltk7cvHD09D-4Sw_b7MQphw=s160-c-k-c0x00ffffff-no-rj",
         links:[
                 
-                {name:"please save me and my family",url:"https://donorbox.org/save-me-and-my-35-family-members-to-get-food-water-sleeping-in-tent-save-us-become-our-savior-939888"}
+                {name:e_data_citizen.donorbox,url:"https://donorbox.org/save-me-and-my-35-family-members-to-get-food-water-sleeping-in-tent-save-us-become-our-savior-939888"}
 
         ]
 }

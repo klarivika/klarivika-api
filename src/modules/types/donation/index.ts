@@ -10,6 +10,8 @@ import { t_donation_person_datas } from "./t_donation_person_datas/t_donation_pe
 import { t_model_find_all_value_skip_id_param } from "./t_model_find_all_value_skip_id_param/t_model_find_all_value_skip_id_param";
 import { t_model_find_by_param } from "./t_model_find_by_param/t_model_find_by_param";
 import { t_donation_service_show_param } from "./t_donation_service_show_param/t_donation_service_show_param";
+import { t_donation_data_global_paginate } from "./t_donation_data_global_paginate/t_donation_data_global_paginate";
+import { t_donation_person_datas_paginate } from "./t_donation_person_datas_paginate/t_donation_person_datas_paginate";
 
 export {
 	t_donation_data_member,
@@ -23,5 +25,8 @@ export {
 	t_donation_person_datas,
 	t_donation_service_show_param,
 	t_model_find_all_value_skip_id_param,
-	t_model_find_by_param
+	t_model_find_by_param,
+	t_donation_person_datas_paginate,
+	t_donation_data_global_paginate
+	
 };

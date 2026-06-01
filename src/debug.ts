@@ -1,4 +1,28 @@
 import { Donation_api } from "./utils"
+// ! 
+const dataspage=[1,2,3,4,5,6,7]
+
+const data_per_page=2
+
+let page_counter:number=0
+
+type t_pages={
+	[key:string]:number[]
+}
+
+const paged=dataspage.reduce((acc,val,idx)=>{
+  if( idx % data_per_page ===0){
+   page_counter++
+ }
+		if(!acc[page_counter])          {
+        	acc[page_counter]=[]
+        }
+      acc[page_counter].push(val)
+	return acc
+},{} as t_pages )
+
+
+console.log(paged)
 
 //by object
 type t_person={
@@ -163,3 +187,69 @@ const skipped_data=Object.entries(datas).reduce((acc,[key,value])=>{
 },{} as Record<string,any>)
 
 console.log(skipped_data)
+
+
+// 1. Tentukan jumlah data per halaman
+const data_per_pages = 2;
+
+// 2. Data API Mentah (Sudah disesuaikan dengan struktur objek kamu)
+const data_apis = {
+  success: true,
+  message: "200 ok!",
+  status: 200,
+  data: {
+    countries: {
+      palestine: {
+        persons: {
+          datas: [
+            { id: 1, name: "mahira", country_name: "palestine" },
+            { id: 2, name: "abdullah zakaria", country_name: "palestine" },
+            { id: 3, name: "For HUMANITY", country_name: "palestine" },
+            { id: 4, name: "Zaid", country_name: "palestine" }
+          ]
+        }
+      }
+    }
+  }
+};
+
+// 3. Tracker halaman biar tidak bentrok
+const page_trackers: { [country: string]: number } = {};
+
+const res_datas = Object.entries(data_apis.data.countries)//.palestine.persons.datas;
+
+// 4. Proses merubah format ke "page_1": [data]
+const data_pages = res_datas.reduce((acc,[country_name,val]) => {
+  const country = country_name//.country_name;
+
+  if (page_trackers[country] === undefined) {
+    page_trackers[country] = 0;
+  }
+
+  // Rumus matematika modulo/pembagian untuk menentukan "page_x"
+  const current_country_data_count = page_trackers[country];
+  const page_num = Math.floor(current_country_data_count / data_per_pages) + 1;
+  const page_key = `page_${page_num}`;
+
+  // Siapkan struktur object penampung
+  if (!acc.data) acc.data = { countries: {} };
+  if (!acc.data.countries[country]) {
+    acc.data.countries[country] = { persons: { datas: {} } };
+  }
+
+  const target_country_datas = acc.data.countries[country].persons.datas;
+  
+  // Di sini keajaibannya: Membuat properti "page_1", "page_2", dst.
+  if (!target_country_datas[page_key]) {
+    target_country_datas[page_key] = [];
+  }
+
+  // Masukkan data orang ke dalam format page yang tepat
+  target_country_datas[page_key].push(val.persons.datas);
+  page_trackers[country]++;
+
+  return acc;
+}, { success: true, message: "200 ok!", status: 200, data: { countries: {} } } as any);
+
+// 5. Perintah wajib W3Schools agar muncul di layar hitam sebelah kanan
+console.log(data_pages)

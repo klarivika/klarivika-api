@@ -1,5 +1,4 @@
-import { e_status_code } from "../modules/enum"
-import { t_api_format_param, t_donation_data_global, t_response,t_donation_api_reformat_param, t_donation_country_name,t_donation_data_member } from "../modules/types"
+import { t_api_format_param, t_donation_data_global, t_response,t_donation_api_reformat_param, t_donation_country_name,t_donation_data_member, t_donation_data_global_paginate } from "../modules/types"
 
 
 class Donation_api{
@@ -58,7 +57,36 @@ static group_by=({group_by,datas}:{group_by:keyof t_donation_data_member,datas:t
     return grouped_data
 }
 
-
+static paginate({data_per_page_count,datas}:{data_per_page_count:number,datas:t_donation_data_global}):t_donation_data_global_paginate{
+const data_per_page=data_per_page_count
+			const page_tracker:{[country:string]:number}={}
+			
+			let res_datas_global_paginate:t_donation_data_global_paginate={countries:{}}
+			Object.entries(datas.countries||{}).forEach(([country_name,data_persons]) => {
+					const person_list=data_persons.persons?.datas || []
+					// todo: jika belum ada || undefined maka siapkan strukture object person:{datas:{}}
+					if(!res_datas_global_paginate.countries[country_name]){
+						res_datas_global_paginate.countries[country_name]={persons:{datas:{}}}
+					}
+					// todo: siapkan tracker counter untuk setiap country
+					if(!page_tracker[country_name]){
+						page_tracker[country_name]=0
+					}
+					// todo: ambil semua person data
+					person_list.forEach((person)=>{
+						const curent_data_count=page_tracker[country_name]
+						const page_numb=Math.floor(curent_data_count/data_per_page)+1
+						const key_numb=`page_${page_numb}`	
+						const target_data=res_datas_global_paginate.countries[country_name].persons.datas
+						if(!target_data[key_numb]){
+							target_data[key_numb]=[]
+						}
+						target_data[key_numb].push(person)
+						page_tracker[country_name]++
+					})
+			});
+            return res_datas_global_paginate
+}
 
 }
 

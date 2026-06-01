@@ -9,9 +9,9 @@ import {
 	t_donation_api_reformat_param,
 	t_donation_person_datas,
 	t_donation_service_show_param,
-	t_donation_repository_show_param,
 	t_model_find_all_value_skip_id_param,
-	t_model_find_by_param
+	t_model_find_by_param,
+	t_donation_data_global_paginate
 } from "./donation";
 import { 
 	t_response ,
@@ -45,11 +45,11 @@ export {
 	t_donation_service_show_param,
 	t_deep_search2,
 	t_deep_search,
-	t_donation_repository_show_param,
 	 t_cb_response,
     t_cb_response_param,
     t_fiture_q_search_country_param,
     t_fiture_q_search_param,
 	t_model_find_all_value_skip_id_param,
-	t_model_find_by_param
+	t_model_find_by_param,
+	t_donation_data_global_paginate
 };

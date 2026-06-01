@@ -5,7 +5,7 @@ const data_profile:t_donation_data_profile={
         image:"https://yt3.googleusercontent.com/zMObFZwgPYUa_Az8TtGJLpg-T74KQ_M2qHQdSnkUjxLKzqHrNCPZ1X7trBx15u0U2KneHq_8=s160-c-k-c0x00ffffff-no-rj",
         links:[
                 
-                {name:"product digital shop",url:"https://www.supportmyart.shop/products/support-me-by-purchasing-this-artwork-%E2%9D%A4%EF%B8%8F?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcASGQ8JleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafujouJDYk2KPHXZWcBpUSzJTV7Mhfycxjg7XoKvh8nxaS-bAigHDpE3mhGbQ_aem_0viKLuMF0HXRcVml8esfGA&variant=53201068130632"}
+                {name:e_data_citizen.artwork,url:"https://www.supportmyart.shop/products/support-me-by-purchasing-this-artwork-%E2%9D%A4%EF%B8%8F?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcASGQ8JleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafujouJDYk2KPHXZWcBpUSzJTV7Mhfycxjg7XoKvh8nxaS-bAigHDpE3mhGbQ_aem_0viKLuMF0HXRcVml8esfGA&variant=53201068130632"}
 
         ],
         name:"abdullah zakaria",

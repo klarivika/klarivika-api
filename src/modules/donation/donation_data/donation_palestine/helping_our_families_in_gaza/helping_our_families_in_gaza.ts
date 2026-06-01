@@ -1,3 +1,4 @@
+import { e_data_citizen } from "../../../../enum";
 import { t_donation_data_member,t_donation_data_profile } from "../../../../types";
 
 const data_profile:t_donation_data_profile={
@@ -13,7 +14,7 @@ const data_profile:t_donation_data_profile={
         image:"https://yt3.googleusercontent.com/H7clrjQS3qVHfzH-FEIMwSw4MB5S1oozXt0kmwqQ4-1LNmj6o189rzSmmgcUCDE6D6BsiQuQZQ=s160-c-k-c0x00ffffff-no-rj",
         links:[
                 
-                {name:"donate via paypal",url:"https://www.paypal.com/donate?hosted_button_id=AZFG48ETFJ99E"}
+                {name:e_data_citizen.paypal,url:"https://www.paypal.com/donate?hosted_button_id=AZFG48ETFJ99E"}
 
         ]
 }

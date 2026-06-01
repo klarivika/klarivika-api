@@ -1,10 +1,11 @@
+import { e_data_citizen } from "../../../../enum";
 import { t_donation_data_member,t_donation_data_profile } from "../../../../types";
 
 const data_profile:t_donation_data_profile={
         image:"https://yt3.googleusercontent.com/sIm_6aEiB_Ma9KncYECwSzLYXDZw4ebMTXvEOjpywJrkz6Ga2fOxc_vB-KKcxY3Wy7hx20HrWdk=s160-c-k-c0x00ffffff-no-rj",
         links:[
                 
-                {name:"Palestinian Campaign",url:"https://chuffed.org/"},
+                {name:e_data_citizen.chuffed,url:"https://chuffed.org/"},
 
         ],
         name:"For HUMANITY",

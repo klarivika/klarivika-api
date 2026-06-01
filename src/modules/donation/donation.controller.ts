@@ -6,6 +6,7 @@ import {
 	t_response,
 	t_donation_controller_show_param,
 	t_donation_data_global,
+	t_donation_data_global_paginate,
 } from "../types";
 import { DonationRepository } from "./donation.respository";
 import { DonationService } from "./donation.service";
@@ -34,7 +35,8 @@ class DonationController extends DonationControllerAbstract implements DonationC
 		//todo : repository butuh status code ,q_params
 		//todo: message datas success ada didalam repository
 		//todo: repository mengirimkan kembali status code sebagai callback
-		let res_datas:t_donation_data_global|[]=[], res_message:string="",res_status_code:number=200,res_success:boolean=true
+		let res_datas:t_donation_data_global={countries:{}}, res_message:string="",res_status_code:number=200,res_success:boolean=true
+		
 		 this.service.Index({
 			// status({status_number:200}),
 			//? status method dari repository  
@@ -55,12 +57,16 @@ class DonationController extends DonationControllerAbstract implements DonationC
 			},
 			q_params
 		});
+			
+		// ! t_donation_data_global_paginate
+			
+			const data_paginate=this.donation_util.paginate({data_per_page_count:5,datas:res_datas})
 
 		const response=this.donation_util.format({
 			success:res_success,
 			message:res_message,
 			status:res_status_code,
-			data: res_datas,
+			data:data_paginate
 		});
 		return response
 	}
@@ -75,6 +81,7 @@ class DonationController extends DonationControllerAbstract implements DonationC
 		 this.service.Show({
 			id,
 			country,
+
 			response_cb({datas,message,status,success}){
 				res_datas=datas 
 				res_message=message,
