@@ -9,14 +9,14 @@ import { DonationDatabase } from "./donation.database"
 // ? select id,country_name from tabel_name group(country_name)
 // todo: sementara refaktor [controller return response json][controller->service->repository->model] [service melakukan bisnis logic lalu di repository[khusus komunikasi dengan databse] sintaksnya mirip dengan findAll,findAllSkipId] [repository hanya boleh perform sql syntaks lalu hasilnya dilempar ke service][model menyediakan validasi sql sintaks untuk menyeleksi field dan groupby diwajibkan jika tidak throw error(group() functions is required in the repository {name})]
 class DonationModel extends DonationModelAbstract implements DonationModelInterface{
-    protected tabel_name='donation'
-    protected database:DonationDatabase=new DonationDatabase()
-    protected donation_util=Donation_api
-    public getData=():t_donation_data_global=>this.database.getData()
-    public findAll():t_donation_data_global{
+    protected readonly tabel_name='donation'
+    protected readonly database:DonationDatabase=new DonationDatabase()
+    protected readonly donation_util=Donation_api
+    public readonly getData=():t_donation_data_global=>this.database.getData()
+    public readonly findAll=():t_donation_data_global=>{
         return this.database.getData()
     }
-    public findAllValueSkipId({query}:t_model_find_all_value_skip_id_param):t_donation_data_global{
+    public readonly findAllValueSkipId=({query}:t_model_find_all_value_skip_id_param):t_donation_data_global=>{
                 const data=this.database.getData()
                 // const query=""
                 const data_person:t_donation_data_member[]=[]
@@ -40,7 +40,7 @@ class DonationModel extends DonationModelAbstract implements DonationModelInterf
      * @desc to find data based on object given data object by developer
      * @param param 
      */
-    public findBy({param,logic='and'}:t_model_find_by_param):t_donation_data_global{
+    public readonly findBy=({param,logic='and'}:t_model_find_by_param):t_donation_data_global=>{
                 //todo param
                 //? ambil data sampai level profile lalu di reformat pakai group by method
                 //? parsial dan logika pakai or

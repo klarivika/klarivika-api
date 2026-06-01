@@ -5,11 +5,11 @@ import { donation_data_global } from "./donation_data"
 
 
 class DonationDatabase extends DonationDatabaseAbstract implements DonationDatabaseInterface{
-    protected data:t_donation_data_global={...donation_data_global}
+    protected readonly data:t_donation_data_global={...donation_data_global}
     constructor(){
         super()
     }
-    public getData():t_donation_data_global {
+      public readonly getData=():t_donation_data_global=> {
        return this.data
     }
 }

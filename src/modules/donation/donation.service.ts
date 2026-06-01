@@ -5,6 +5,7 @@ import { e_status_code } from "../enum";
 import { DonationServiceInterface } from "../interfaces";
 import { t_donation_service_index_param, t_q_params, t_fiture_q_search_country_param, t_fiture_q_search_param, t_donation_service_show_param } from "../types";
 import { DonationModel } from "./donation.model";
+import { DonationRepository } from "./donation.respository";
 
 //? repository memanggil model untuk komunikasi ke database
 //?
@@ -14,12 +15,13 @@ import { DonationModel } from "./donation.model";
 // todo: alurnya controller->service->repository->model->database
 // type  t_donation_service_index_param
 class DonationService extends DonationServiceAbstract implements DonationServiceInterface{
-	protected donation_util=Donation_api
-	protected model=new DonationModel()
+	protected readonly donation_util:Donation_api=Donation_api
+	protected readonly model:DonationModel=new DonationModel()
+    protected readonly repository:DonationRepository=new DonationRepository()
 	constructor(){
 		super()
 	}
-protected FitureQSearchCountry({cb_response,id,data_models,q_params_datas,country}:t_fiture_q_search_country_param){
+protected readonly FitureQSearchCountry=({cb_response,id,data_models,q_params_datas,country}:t_fiture_q_search_country_param)=>{
             this.QSearchCountry({
                 cb_response({ data_models, message_response, status_code_response, success_response }) {
                     cb_response({
@@ -37,7 +39,7 @@ protected FitureQSearchCountry({cb_response,id,data_models,q_params_datas,countr
             })
 
     }
-    protected FitureQSearch({q_params_datas,data_models,cb_response}:t_fiture_q_search_param){
+    protected readonly FitureQSearch=({q_params_datas,data_models,cb_response}:t_fiture_q_search_param)=>{
        this.QSearch({
         cb_response({data_models,message_response,status_code_response,success_response}){
             cb_response({data_models,message_response,status_code_response,success_response})
@@ -48,11 +50,11 @@ protected FitureQSearchCountry({cb_response,id,data_models,q_params_datas,countr
        })
     }
 	
-	public Index({
+	public readonly Index=({
 		    status,
             q_params,
             response_cb
-	}: t_donation_service_index_param): void {
+	}: t_donation_service_index_param): void =>{
 		//? q_search_country:string,
             // ?q_search:string global search
             //? 
@@ -91,13 +93,13 @@ protected FitureQSearchCountry({cb_response,id,data_models,q_params_datas,countr
                 success
             })
 	}
-	public Show({
+	public readonly Show=({
 		    status,
             q_params,
             response_cb,
             country,
             id
-	}: t_donation_service_show_param): void {
+	}: t_donation_service_show_param): void =>{
 		  let status_code:number=e_status_code.SuccessCode
             let message:string=e_status_code.SuccessMessage
             let success:boolean=true

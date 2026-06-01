@@ -9,7 +9,7 @@ type t_q_search_param=t_fiture_q_search_param&{
     model_find:DonationModel
 }
 export abstract class BaseAbstract{
-    protected QSearchCountry({cb_response,country,data_models,id,q_params_datas,model_find}:t_q_search_country_param){
+    protected readonly QSearchCountry=({cb_response,country,data_models,id,q_params_datas,model_find}:t_q_search_country_param)=>{
          //! potensi bug kalau country_name search beda misal mahira maka dia akan memunculkan datanya
                 const negaras:Array<string|undefined>=[]
                 for(const data_country of Object.values(model_find.findAll().countries)){
@@ -93,12 +93,6 @@ export abstract class BaseAbstract{
                       },code:200})
                        
                   }
-                //   else{
-                //      Universal_api_util.responses({cb({ status_code_response, message_response, success_response }) {
-                        
-                //               cb_response({data_models,message_response,status_code_response,success_response})
-                //       },code:404})
-                //   }
 
                 }
 
@@ -107,7 +101,7 @@ export abstract class BaseAbstract{
             
                 country_not_found()
     }
-    protected QSearch({cb_response,data_models,q_params_datas,model_find}:t_q_search_param){
+    protected readonly QSearch=({cb_response,data_models,q_params_datas,model_find}:t_q_search_param)=>{
          if(q_params_datas?.q_search !== undefined){
                     data_models=model_find.findAllValueSkipId({query:q_params_datas.q_search})
                     if(Object.values(data_models.countries).length===0){
