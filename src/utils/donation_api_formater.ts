@@ -87,6 +87,57 @@ const data_per_page=data_per_page_count
 			});
             return res_datas_global_paginate
 }
+static sql_syntaxs({query,data,tabel_name}:{query:string,data:t_donation_data_member[],tabel_name:string}):t_donation_data_member[]{
+    const rules={
+  selected_fields:/([a-zA-Z_,]+)|(\*)/,//todo: sama
+  group:/groupBy\(([A-Za-z_]+)\)/, //!validasi jika bukan string
+  //todo: from di urutan 3 dari data terakhir
+  //todo: tabel_name di urutan 2 dari data terakhir
+  //todo: groupby di urutan data terakhir
+} 
+
+        query.replace(/([a-zA-Z_,]+)\s+/,"")
+    const array_queries=query.split(" ")
+     if(!rules.selected_fields.test(query) || array_queries.indexOf("select") !==0)return[]
+    //  todo: ambil selected field dari indexof select[0+1]
+     if(!/\*|[a-zA-Z_,]+/.test(query) || array_queries.indexOf("select")+1 !==1)return[]
+    //  todo: ambil from
+     if(!/from/.test(query)&& array_queries.indexOf("from") !==2)return[]
+     const check_for_tabel_name=array_queries[array_queries.indexOf(tabel_name as string)]
+     if(tabel_name !== check_for_tabel_name&& array_queries.indexOf(tabel_name as string) !==3)return[]
+     if(!rules.group.test(query)|| array_queries.length-1 !==4)return[]
+
+
+        const get_keys=({rule,data}:{rule:string,data:t_donation_data_member[]}):any[]=>{
+            if(rule === '*'){
+               return data
+            }
+            // todo: rule adalah name,age
+            const data_selects=rule.split(",")
+            return data.map((row=>{
+              const new_row:Record<string,any>={}
+                Object.entries(row).forEach(([key ,value])=>{
+                    if(data_selects.includes(key))new_row[key]=value
+                })
+                return new_row
+            }))
+        }
+     const q_select=array_queries[array_queries.indexOf("select")+1]   
+     const selected_fields_=q_select === "*"?get_keys({data:data,rule:"*"}):get_keys({data:data,rule:q_select})
+     const grouped_data=query.match(rules.group)?.[1]!
+        if(!grouped_data)return[]
+        const grouped=selected_fields_?.reduce((acc,row)=>{
+          const grouped_data_type=row[grouped_data]
+            if(grouped_data_type !== undefined ){
+                if(!acc[grouped_data_type])acc[grouped_data_type]=[]
+                acc[grouped_data_type].push(row)
+            }
+
+          return acc 
+        },{} as Record<string, any[]>)
+
+        return grouped
+  }
 
 }
 

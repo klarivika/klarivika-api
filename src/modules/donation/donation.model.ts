@@ -45,10 +45,10 @@ class DonationModel extends DonationModelAbstract implements DonationModelInterf
                 //? ambil data sampai level profile lalu di reformat pakai group by method
                 //? parsial dan logika pakai or
                 const params=param
-                const search_values:Array<string|number>=[]
+                const search_values:Array<{k:string,v:any}|string|number>=[]
                 for(const [key,value] of Object.entries(params)){
                         // if(key === 'id')continue
-                        search_values.push(key,value)
+                        search_values.push({k:key,v:value})
                 }
                 const result_datas:t_donation_data_member[]=[]
                 const datas=this.database.getData()
@@ -60,6 +60,7 @@ class DonationModel extends DonationModelAbstract implements DonationModelInterf
                         }
                     })
                 })
+                    // console.log(JSON.stringify(result_datas))
                 const grouped_data=this.donation_util.group_by({group_by:'country_name',datas:result_datas})
                 return this.donation_util.reformat_mass_country({
                     country_Data:grouped_data

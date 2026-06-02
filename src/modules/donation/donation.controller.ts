@@ -69,7 +69,7 @@ class DonationController extends DonationControllerAbstract implements DonationC
 		let res_datas:t_donation_data_global|[]=[], res_message:string="",res_status_code:number=200,res_success:boolean=true
 		//? kemungkinan error di idnya
 		 this.service.Show({
-			id,
+			id:id,
 			country,
 
 			response_cb({datas,message,status,success}){

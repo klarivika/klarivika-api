@@ -72,7 +72,7 @@ protected readonly FitureQSearchCountry=({cb_response,id,data_models,q_params_da
                         message=message_response
                         datas=data_models
                     },data_models:datas,q_params_datas:data_q_param})
-              
+                    // todo: kalau q_search_country ada mak global search akan ditimpa oleh search country dan global search tidak akan valid dan dia akan ke overide
                 if(data_q_param?.q_search_country !== undefined){
                         query=data_q_param?.q_search_country
                     datas=this.model.findBy({param:{country_name:query}})
@@ -103,9 +103,9 @@ protected readonly FitureQSearchCountry=({cb_response,id,data_models,q_params_da
 		  let status_code:number=e_status_code.SuccessCode
             let message:string=e_status_code.SuccessMessage
             let success:boolean=true
-            let datas=this.model.findBy({param:{id,country_name:country}})
+            let datas=this.model.findBy({param:{id:id,country_name:country}})
             const q_params_datas:t_q_params|undefined=q_params
-                
+                // console.log("Data awal setelah findBy:", datas)
 
                 //todo : gunanya untuk response 404 jika user asal asalan input country yang bukan merupakan negara
                 // ? jika q_search_country ada 
@@ -115,6 +115,7 @@ protected readonly FitureQSearchCountry=({cb_response,id,data_models,q_params_da
                         success=success_response
                         message=message_response
                         status_code=status_code_response 
+                        // console.log("Data akhir setelah findBy:", datas)
                     }
                 ,data_models:datas,country,q_params_datas,id})
 

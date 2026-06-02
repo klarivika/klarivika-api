@@ -42,8 +42,8 @@ export abstract class BaseAbstract{
                 const validate_country=Universal_api_util.deep_search({value:negaras,query:country!,skiping_field:[]})
                 // todo: kalau dia tepat [ada id dan country tapi tidak ada query parameter untuk search negara] maka kirimkan datanya dan user tidak asal isi negara dengan nilai yang bukan negara
                 if(validate_country && id !== undefined && country !==''){
-                    data_models=model_find.findBy({param:{country_name:country!,id}})
-
+                    data_models=model_find.findBy({param:{country_name:country!,id:id}})
+                       
                     if(Object.values(data_models.countries).length <1){
                          data_models=model_find.findBy({param:{not_found:"data not found!"}})
                         Universal_api_util.responses({cb({ status_code_response, message_response, success_response }) {
@@ -108,6 +108,11 @@ export abstract class BaseAbstract{
                          Universal_api_util.responses({cb({message_response,status_code_response,success_response}){
                                 cb_response({message_response,status_code_response,success_response,data_models})
                          },code:404})
+                        }else{
+                            data_models=model_find.findAllValueSkipId({query:q_params_datas.q_search})
+                            Universal_api_util.responses({cb({message_response,status_code_response,success_response}){
+                                cb_response({message_response,status_code_response,success_response,data_models})
+                         },code:200})
                         }
                         
                         }

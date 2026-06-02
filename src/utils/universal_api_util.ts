@@ -93,62 +93,72 @@ export class Universal_api_util{
                         
                   }
                   //? jika pengecekkan object ditaruh dipaling atas maka dia akan menyebabkan infinite loop karena object di konversi sebagai array lalu di cek di pengecekan object lagi tanpa henti karena array adalah object juga
-                  if(typeof data ==='object'){
+                  if(typeof data ==='object'&&data!=null){
                  
                         const data_arrays=Object.entries(data as Record<string,any>)
                         .reduce((acc,[key,value])=>{
                               if(skiping_field.length>0){
-                                    if(skiping_field.includes(key)){
+                                    // todo: kalau skipping field tidak kosong maka buang fieldnya
+                                    if(!skiping_field.includes(key)){
                                           acc[key]=value
                                     }
                               }else{
+                                    // todo: masukkan semua field
                                     acc[key]=value
                               }
 
                               return acc
-                        },{} as Record<string,any>)
+                        },{} as Record<string,any>)//todo: return object[key:string]:any
                         //todo: check setiap data
                         //? kalau ada 1 data key match misal key maka akan terus check minimal 1 kecocokan dan dia true
                         //? jika data array [[name,jaka],[country_name,palestine]]
-                        let local_object_string = "";
-                        const nested_objects_or_arrays: any[] = [];
-                     for(const [key,value] of Object.entries(data_arrays)){
-                              //todo: cocokan key dan valuenya
-                              //?kalau value ternyata adalah array dan object dan bukan null
-                              if(value !== null && typeof value === 'object'){
-                                    nested_objects_or_arrays.push(value)
-                              } 
-                              //? kalau value type datanya primitif maka jadikan string
-                              else if(value !== undefined){
-                                    //? name jaka
-                                    local_object_string+=`${key} ${value}`
+                        //! todo: refaktor jadi deepsearch bongkar jadi primitif value dibongkar 1 per 1 lalu dicocokan strict misal id == id saat menyentuh type data primitif
+                     const search_datas_criteria=Object.entries(queries)
+                     const check_matching=(criteria:Array<{k:string,v:any}|string|number>)=>{
+                           const [keyEntry, valueEntry] = criteria;
+                              /**
+                               * todo: kalau valueEntry adalah object dia akan berisi {k:val,v:val} lalu keyEntry berisi index misal 0 karena kan queries itu adalah array<{key,val}> nah bentuknya kurleb seperti ini [{key:id,val:1},{key:name,val:jack}] karena object.entries bertugas membongkar array maupun object menjadi pair maka dia akan lihat dulu kalau dia adalah array maka keynya jadi index dari array itu sendiri kalau object maka keynya adalah key dari object itu sendiri  
+                               * todo: [jaka,id,12] menjadi [[0,jaka],[1,id][2,12]]
+                               * todo: [{val:name,key:name}] [[0,{val:name,key:name}]]
+                               * todo: {val:name,key:id} menjadi [ [val,name],[key,id] ]
+                               */
+
+                              if (typeof valueEntry === 'object' && valueEntry !== null && 'k' in valueEntry) {
+                                   
+                                    const actualValue = data_arrays[valueEntry.k];
+                                    if (actualValue === undefined) return false;
+
+                                    if (valueEntry.k === 'id') {
+                                          return actualValue.toString() === valueEntry.v.toString();
+                                    }
+                                    return actualValue.toString().toLowerCase().includes(valueEntry.v.toString().toLowerCase());
                               }
-                                    //todo : lakukan pencocokan
-                                    //?curent_string='name jaka'
-                                    //?queries=[name,jaka]
-                              const curent_string=local_object_string.toString().toLowerCase()
-                              let is_match=false
-                              if(logic === 'and')is_match=queries.every(queri=>curent_string.includes(queri.toString().toLowerCase()))
-                              if(logic === 'or')is_match=queries.some(queri=>curent_string.includes(queri.toString().toLowerCase()))
-                               if(is_match)return true 
+
+                              
+                              if(typeof keyEntry !== "number" || typeof keyEntry !== "string")return false
+                              const actualValue = data_arrays[keyEntry];
+                              if (actualValue === undefined) return false;
+
+                              if (keyEntry === 'id') {
+                                    return actualValue.toString() === valueEntry.toString();
+                              }
+                              return actualValue.toString().toLowerCase().includes(valueEntry.toString().toLowerCase());
                         }
-                              //todo: jika ternyata nested_objects_or_arrays adalah array atau object
-                              if(nested_objects_or_arrays.length>0){
-                                  return nested_objects_or_arrays.some(nested_data=>
-                                      this.deep_search2({data:nested_data,logic,queries,skiping_field})
-                                    )
-                              }     
-                        //.every(val_every=>this.deep_search2({data:val_every,queries:queries,logic}))//.every(everyval=>deep_search_and())
+                        let is_match=false
+                        if(logic === 'and')is_match=search_datas_criteria.every(criteria=>check_matching(criteria))
+                        if(logic === 'or')is_match=search_datas_criteria.some(criteria=>check_matching(criteria))
+                        if(is_match==true)return true      
+                  
                     
 
                     return false
                 }
                   if(validate_data_type.number){
                         if(logic==='and'){
-                              return queries.every(queri=> String(data).toLowerCase().includes(queri?.toString().toLowerCase()))
+                              return queries.every(queri=> data ==queri)
                         }
                         if(logic==='or'){
-                              return queries.some(queri=> String(data).toLowerCase().includes(queri?.toString().toLowerCase()))
+                              return queries.some(queri=> data ==queri)
                         }
                   }
                   //? queries [country,palestine]
